@@ -1,5 +1,9 @@
 import DashboardHeader from "@/components/dashboard/header";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { ordersData } from "@/lib/data";
+import { formatCurrency } from "@/lib/utils";
 
 export default function DashboardOverviewPage() {
   return (
@@ -24,8 +28,30 @@ export default function DashboardOverviewPage() {
                     <CardTitle>Commandes Récentes</CardTitle>
                     <CardDescription>Suivi des commandes payées et non payées.</CardDescription>
                 </CardHeader>
-                <CardContent className="flex items-center justify-center h-64">
-                     <p className="text-muted-foreground">Tableau des commandes à venir...</p>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Fournisseur</TableHead>
+                                <TableHead>Statut</TableHead>
+                                <TableHead className="text-right">Montant</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {ordersData.slice(0, 5).map((order) => (
+                                <TableRow key={order.id}>
+                                    <TableCell>
+                                        <div className="font-medium">{order.supplier}</div>
+                                        <div className="text-sm text-muted-foreground">{order.date}</div>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Badge variant={order.status === 'Payée' ? 'success' : 'destructive'}>{order.status}</Badge>
+                                    </TableCell>
+                                    <TableCell className="text-right">{formatCurrency(order.amount)}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
                 </CardContent>
             </Card>
         </div>
