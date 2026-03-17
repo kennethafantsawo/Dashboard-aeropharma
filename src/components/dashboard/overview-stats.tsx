@@ -26,7 +26,7 @@ export default function OverviewStats() {
                 </CardHeader>
                 <CardContent>
                     <div className="text-2xl font-bold">{formatCurrency(todayRevenue)}</div>
-                    <p className={`text-xs ${revenueChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <p className={`text-xs ${revenueChange >= 0 ? 'text-[hsl(var(--success))]' : 'text-destructive'}`}>
                         {revenueChange >= 0 ? '+' : ''}{revenueChange.toFixed(1)}% depuis hier
                     </p>
                 </CardContent>
@@ -48,7 +48,7 @@ export default function OverviewStats() {
                 </CardHeader>
                 <CardContent>
                     <div className="text-2xl font-bold">{formatCurrency(outstandingCredit)}</div>
-                     <p className={`text-xs ${creditChange >= 0 ? 'text-red-600' : 'text-green-600'}`}>
+                     <p className={`text-xs ${creditChange >= 0 ? 'text-destructive' : 'text-[hsl(var(--success))]'}`}>
                         {creditChange >= 0 ? '+' : ''}{creditChange.toFixed(1)}% par rapport à hier
                     </p>
                 </CardContent>
