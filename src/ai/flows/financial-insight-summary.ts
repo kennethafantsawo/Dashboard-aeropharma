@@ -36,4 +36,17 @@ const financialInsightSummaryPrompt = ai.definePrompt({
   name: 'financialInsightSummaryPrompt',
   input: {schema: FinancialInsightSummaryInputSchema},
   output: {schema: FinancialInsightSummaryOutputSchema},
-  prompt: `You are an expert financial analyst for 
+  prompt: `You are an expert financial analyst. Based on the following financial data: {{{financialReportData}}}, provide a concise summary of key trends, anomalies, and actionable insights.`,
+});
+
+const financialInsightSummaryFlow = ai.defineFlow(
+  {
+    name: 'financialInsightSummaryFlow',
+    inputSchema: FinancialInsightSummaryInputSchema,
+    outputSchema: FinancialInsightSummaryOutputSchema,
+  },
+  async (input) => {
+    const { output } = await financialInsightSummaryPrompt(input);
+    return output!;
+  }
+);
