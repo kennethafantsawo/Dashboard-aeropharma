@@ -1,49 +1,48 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { ordersData } from "@/lib/data"
+import { Button } from "../ui/button"
+import { Plus } from "lucide-react"
+
+const teamMembers = [
+    { name: "Alexandra Deff", task: "Working on Github Project Repository", status: "Completed", avatar: "https://picsum.photos/seed/alexandra/40/40" },
+    { name: "Edwin Adenike", task: "Working on Integrate User Authentication System", status: "In Progress", avatar: "https://picsum.photos/seed/edwin/40/40" },
+    { name: "Isaac Oluwatemilorun", task: "Working on Develop Search and Filter Functionality", status: "Pending", avatar: "https://picsum.photos/seed/isaac/40/40" },
+    { name: "David Oshodi", task: "Working on Responsive Layout for Homepage", status: "In Progress", avatar: "https://picsum.photos/seed/david/40/40" },
+]
+
+const statusVariant: { [key: string]: "secondary" | "default" | "outline" } = {
+    "Completed": "secondary",
+    "In Progress": "default",
+    "Pending": "outline",
+}
+
 
 export default function RecentTransactions() {
-    const recentOrders = ordersData
-        .sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .slice(0, 6);
-
-    const formatCurrency = (value: number) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value);
-
     return (
         <Card>
-            <CardHeader>
-                <CardTitle>Commandes Récentes</CardTitle>
-                <CardDescription>Liste des dernières commandes passées aux fournisseurs.</CardDescription>
+            <CardHeader className="flex flex-row items-center justify-between">
+                <div >
+                    <CardTitle>Team Collaboration</CardTitle>
+                </div>
+                <Button variant="outline" size="sm"><Plus className="mr-2 h-4 w-4"/> Add Member</Button>
             </CardHeader>
-            <CardContent>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Fournisseur</TableHead>
-                            <TableHead>Statut</TableHead>
-                            <TableHead className="text-right">Montant</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {recentOrders.map(order => (
-                            <TableRow key={order.id}>
-                                <TableCell>
-                                    <div className="font-medium">{order.supplier}</div>
-                                    <div className="text-sm text-muted-foreground">
-                                        {new Date(order.date).toLocaleDateString('fr-FR')}
-                                    </div>
-                                </TableCell>
-                                <TableCell>
-                                    <Badge variant={order.status === 'Payée' ? 'secondary' : 'destructive'}>
-                                        {order.status}
-                                    </Badge>
-                                </TableCell>
-                                <TableCell className="text-right">{formatCurrency(order.amount)}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+            <CardContent className="space-y-4">
+                {teamMembers.map(member => (
+                    <div key={member.name} className="flex items-start justify-between">
+                        <div className="flex items-center gap-3">
+                            <Avatar>
+                                <AvatarImage src={member.avatar} data-ai-hint="person face" />
+                                <AvatarFallback>{member.name.substring(0, 2)}</AvatarFallback>
+                            </Avatar>
+                            <div>
+                                <p className="font-medium text-sm">{member.name}</p>
+                                <p className="text-xs text-muted-foreground">{member.task}</p>
+                            </div>
+                        </div>
+                         <Badge variant={statusVariant[member.status]}>{member.status}</Badge>
+                    </div>
+                ))}
             </CardContent>
         </Card>
     )
