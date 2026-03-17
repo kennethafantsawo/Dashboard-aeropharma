@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { supabase } from "./supabase";
+import { supabase, supabaseInitializationError } from "./supabase";
 import { revalidatePath } from "next/cache";
 
 const loginSchema = z.object({
@@ -35,7 +35,7 @@ const supplierSchema = z.object({
 
 export async function addSupplier(values: z.infer<typeof supplierSchema>): Promise<{ error?: string; success?: boolean }> {
   if (!supabase) {
-    return { error: "La base de données n'est pas configurée." };
+    return { error: supabaseInitializationError || "La base de données n'est pas configurée." };
   }
 
   const parsedValues = supplierSchema.safeParse(values);
@@ -62,7 +62,7 @@ export async function addSupplier(values: z.infer<typeof supplierSchema>): Promi
 
 export async function getSuppliers() {
     if (!supabase) {
-      console.warn("Supabase n'est pas configuré, impossible de récupérer les fournisseurs.");
+      console.warn(supabaseInitializationError || "Supabase n'est pas configuré, impossible de récupérer les fournisseurs.");
       return [];
     }
     const { data, error } = await supabase.from("fournisseurs").select('id, nom').order('nom');
@@ -75,7 +75,7 @@ export async function getSuppliers() {
 
 export async function deleteSupplier(id: string): Promise<{ error?: string; success?: boolean }> {
     if (!supabase) {
-        return { error: "La base de données n'est pas configurée." };
+        return { error: supabaseInitializationError || "La base de données n'est pas configurée." };
     }
     
     if (!id) {
