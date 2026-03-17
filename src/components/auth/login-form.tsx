@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { login } from "@/lib/actions";
 
 const formSchema = z.object({
   username: z.string().min(1, { message: "Le nom d'utilisateur est requis." }),
@@ -36,27 +37,25 @@ export default function LoginForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    // Simulate API call for authentication.
-    setTimeout(() => {
-      if (
-        values.username === 'pharmacie' && values.password === 'password123'
-      ) {
-        toast({
-          title: "Connexion réussie",
-          description: "Redirection vers le tableau de bord...",
-        });
-        router.push("/dashboard");
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Erreur de connexion",
-          description: "Nom d'utilisateur ou mot de passe incorrect.",
-        });
-        setIsLoading(false);
-      }
-    }, 1000);
+    
+    const result = await login(values);
+
+    if (result.success) {
+      toast({
+        title: "Connexion réussie",
+        description: "Redirection vers le tableau de bord...",
+      });
+      router.push("/dashboard");
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Erreur de connexion",
+        description: result.error,
+      });
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -69,7 +68,7 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel>Nom d'utilisateur</FormLabel>
               <FormControl>
-                <Input placeholder="pharmacie" {...field} />
+                <Input placeholder="Votre nom d'utilisateur" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -82,7 +81,7 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel>Mot de passe</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="password123" {...field} />
+                <Input type="password" placeholder="Votre mot de passe" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
