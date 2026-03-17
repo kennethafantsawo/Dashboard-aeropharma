@@ -7,25 +7,29 @@ function getSupabaseClient() {
 
     const urlPlaceholder = 'VOTRE_URL_SUPABASE_ICI';
     const keyPlaceholder = 'VOTRE_CLE_ANON_SUPABASE_ICI';
+    
+    const restartReminder = "N'oubliez pas de redémarrer le serveur (Ctrl+C puis 'npm run dev') après avoir modifié le fichier .env.";
 
-    if (!supabaseUrl || supabaseUrl.includes(urlPlaceholder)) {
+    if (!supabaseUrl || supabaseUrl === urlPlaceholder) {
+        const urlValue = supabaseUrl ? `'${supabaseUrl}'` : 'non définie';
         return { 
             client: null, 
-            error: `ERREUR DE CONFIGURATION : L'URL de Supabase est manquante. Assurez-vous d'avoir : 1. Copié l'URL depuis les paramètres API de votre projet Supabase. 2. Collé l'URL dans le fichier .env. 3. **IMPÉRATIF : Redémarré votre serveur de développement.**` 
+            error: `L'URL Supabase est incorrecte. Valeur actuelle: ${urlValue}. Veuillez la vérifier dans votre fichier .env. ${restartReminder}`
         };
     }
 
-    if (!supabaseKey || supabaseKey.includes(keyPlaceholder)) {
+    if (!supabaseKey || supabaseKey === keyPlaceholder) {
+        const keyValue = supabaseKey ? `'${supabaseKey}'` : 'non définie';
         return { 
             client: null, 
-            error: `ERREUR DE CONFIGURATION : La clé 'anon' de Supabase est manquante. Assurez-vous d'avoir : 1. Copié la clé 'anon' (publique) depuis les paramètres API. 2. Collé la clé dans le fichier .env. 3. **IMPÉRATIF : Redémarré votre serveur de développement.**`
+            error: `La clé 'anon' Supabase est incorrecte. Valeur actuelle: ${keyValue}. Veuillez la vérifier dans votre fichier .env. ${restartReminder}`
         };
     }
     
     if (!(supabaseUrl.startsWith('http://') || supabaseUrl.startsWith('https://'))) {
         return { 
             client: null, 
-            error: `Erreur de configuration : L'URL de Supabase ("${supabaseUrl}") ne semble pas être une URL valide.`
+            error: `L'URL de Supabase ("${supabaseUrl}") ne semble pas être une URL valide.`
         };
     }
 
