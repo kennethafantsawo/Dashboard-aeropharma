@@ -38,18 +38,26 @@ export default function DashboardOverviewPage() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {ordersData.slice(0, 5).map((order) => (
-                                <TableRow key={order.id}>
-                                    <TableCell>
-                                        <div className="font-medium">{order.supplier}</div>
-                                        <div className="text-sm text-muted-foreground">{order.date}</div>
+                            {ordersData.length > 0 ? (
+                                ordersData.slice(0, 5).map((order) => (
+                                    <TableRow key={order.id}>
+                                        <TableCell>
+                                            <div className="font-medium">{order.supplier}</div>
+                                            <div className="text-sm text-muted-foreground">{order.date}</div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Badge variant={order.status === 'Payée' ? 'success' : 'destructive'}>{order.status}</Badge>
+                                        </TableCell>
+                                        <TableCell className="text-right">{formatCurrency(order.amount)}</TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={3} className="text-center text-muted-foreground">
+                                        Aucune commande récente à afficher.
                                     </TableCell>
-                                    <TableCell>
-                                        <Badge variant={order.status === 'Payée' ? 'success' : 'destructive'}>{order.status}</Badge>
-                                    </TableCell>
-                                    <TableCell className="text-right">{formatCurrency(order.amount)}</TableCell>
                                 </TableRow>
-                            ))}
+                            )}
                         </TableBody>
                     </Table>
                 </CardContent>
