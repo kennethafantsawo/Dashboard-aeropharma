@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 export default function ImplantsPage() {
   return (
     <div className="flex min-h-[100dvh] w-full flex-col bg-muted/40">
-      <DashboardHeader title="Consommation Implants" showExport={true} />
+      <DashboardHeader title="Consommation Implants" description="Analyse de la consommation mensuelle par fournisseur." showExport={true} />
       <main className="p-4 md:p-8">
         <Card>
             <CardHeader>

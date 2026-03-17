@@ -8,7 +8,7 @@ import { Upload } from "lucide-react";
 export default function SettingsPage() {
   return (
     <div className="flex min-h-[100dvh] w-full flex-col bg-muted/40">
-      <DashboardHeader title="Paramètres" />
+      <DashboardHeader title="Paramètres" description="Gérez les données de l'application." />
       <main className="p-4 md:p-8 grid gap-8 md:grid-cols-2">
         <Card>
           <CardHeader>

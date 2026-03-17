@@ -7,7 +7,7 @@ import { PlusCircle } from "lucide-react";
 export default function InsurancePage() {
   return (
     <div className="flex min-h-[100dvh] w-full flex-col bg-muted/40">
-      <DashboardHeader title="Assurances" showExport={true} />
+      <DashboardHeader title="Assurances" description="Suivi des montants consommés, pertes et rejets par assurance." showExport={true} />
       <main className="flex-1 p-4 md:p-8">
         <div className="flex items-center justify-between mb-4">
             <Tabs defaultValue="allianz">

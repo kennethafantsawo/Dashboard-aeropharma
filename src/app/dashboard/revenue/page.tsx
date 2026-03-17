@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export default function RevenuePage() {
   return (
     <div className="flex min-h-[100dvh] w-full flex-col bg-muted/40">
-      <DashboardHeader title="Recettes" showExport={true} />
+      <DashboardHeader title="Recettes" description="Analyse détaillée des différentes sources de revenus." showExport={true} />
       <main className="flex-1 p-4 md:p-8">
         <Tabs defaultValue="week">
             <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:w-auto md:grid-cols-5 mb-4">
