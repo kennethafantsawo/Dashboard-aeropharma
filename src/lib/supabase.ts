@@ -11,14 +11,14 @@ function getSupabaseClient() {
     if (!supabaseUrl || supabaseUrl.includes(urlPlaceholder)) {
         return { 
             client: null, 
-            error: `ACTION REQUISE : L'URL de Supabase est manquante ou invalide. Assurez-vous qu'elle est correctement définie dans votre fichier .env et que vous avez redémarré le serveur.` 
+            error: `ERREUR DE CONFIGURATION : L'URL de Supabase est manquante. Assurez-vous d'avoir : 1. Copié l'URL depuis les paramètres API de votre projet Supabase. 2. Collé l'URL dans le fichier .env. 3. **IMPÉRATIF : Redémarré votre serveur de développement.**` 
         };
     }
 
     if (!supabaseKey || supabaseKey.includes(keyPlaceholder)) {
         return { 
             client: null, 
-            error: `ACTION REQUISE : La clé 'anon' de Supabase est manquante ou invalide. Assurez-vous qu'elle est correctement définie dans votre fichier .env et que vous avez redémarré le serveur.` 
+            error: `ERREUR DE CONFIGURATION : La clé 'anon' de Supabase est manquante. Assurez-vous d'avoir : 1. Copié la clé 'anon' (publique) depuis les paramètres API. 2. Collé la clé dans le fichier .env. 3. **IMPÉRATIF : Redémarré votre serveur de développement.**`
         };
     }
     
