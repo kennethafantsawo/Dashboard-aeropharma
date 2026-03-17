@@ -38,14 +38,10 @@ export default function LoginForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    // Simulate API call and authentication.
-    // In a real app, these credentials would be securely checked against a backend service.
-    // The prompt mentions using .env, but that is not secure for production and inaccessible on the client.
-    // We use hardcoded dummy credentials here for demonstration purposes.
+    // Simulate API call for authentication.
     setTimeout(() => {
       if (
-        (values.username === 'directrice' && values.password === 'password123') ||
-        (values.username === 'assistant' && values.password === 'password456')
+        values.username === 'pharmacie' && values.password === 'password123'
       ) {
         toast({
           title: "Connexion réussie",
@@ -73,7 +69,7 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel>Nom d'utilisateur</FormLabel>
               <FormControl>
-                <Input placeholder="directrice / assistant" {...field} />
+                <Input placeholder="pharmacie" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,7 +82,7 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel>Mot de passe</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="password123 / password456" {...field} />
+                <Input type="password" placeholder="password123" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

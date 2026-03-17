@@ -22,8 +22,6 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar"
 import { Separator } from "@/components/ui/separator"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "../ui/button"
 
 const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Aperçu" },
@@ -84,20 +82,6 @@ export default function MainNav() {
                 <span>Paramètres</span>
               </Link>
             </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-             <Button variant="ghost" className="w-full justify-start h-12" asChild>
-                <div className="flex items-center gap-3">
-                    <Avatar className="h-8 w-8">
-                        <AvatarImage src="https://picsum.photos/seed/user-avatar/40/40" data-ai-hint="person face" />
-                        <AvatarFallback>D</AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col items-start">
-                        <span className="font-semibold text-sm">Directrice</span>
-                        <span className="text-xs text-muted-foreground">Admin</span>
-                    </div>
-                </div>
-            </Button>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
