@@ -34,6 +34,10 @@ const supplierSchema = z.object({
 });
 
 export async function addSupplier(values: z.infer<typeof supplierSchema>): Promise<{ error?: string; success?: boolean }> {
+  if (!supabase) {
+    return { error: "La base de données n'est pas configurée." };
+  }
+
   const parsedValues = supplierSchema.safeParse(values);
 
   if (!parsedValues.success) {
@@ -57,6 +61,10 @@ export async function addSupplier(values: z.infer<typeof supplierSchema>): Promi
 }
 
 export async function getSuppliers() {
+    if (!supabase) {
+      console.warn("Supabase n'est pas configuré, impossible de récupérer les fournisseurs.");
+      return [];
+    }
     const { data, error } = await supabase.from("fournisseurs").select('id, nom').order('nom');
     if (error) {
         console.error("Supabase error:", error);
@@ -66,6 +74,10 @@ export async function getSuppliers() {
 }
 
 export async function deleteSupplier(id: string): Promise<{ error?: string; success?: boolean }> {
+    if (!supabase) {
+        return { error: "La base de données n'est pas configurée." };
+    }
+    
     if (!id) {
         return { error: "ID de fournisseur invalide." };
     }
